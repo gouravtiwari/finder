@@ -1,0 +1,31 @@
+<% title "User" %>
+
+<p>
+  <strong>name:</strong>
+  <%= @user.name %>
+</p>
+<p>
+  <strong>Address:</strong>
+  <%= @user.address %>
+</p>
+<p>
+  <strong>Latitude:</strong>
+  <%= @user.latitude %>
+</p>
+<p>
+  <strong>Longitude:</strong>
+  <%= @user.longitude %>
+</p>
+
+<h3>Nearby users</h3>
+<ul>
+<% for user in @user.nearbys(10) %>
+  <li><%= link_to user.address, user %> (<%= user.distance.round(2) %> miles)</li>
+<% end %>
+</ul>
+<%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@user.latitude}%2C#{@user.longitude}" %>
+<p>
+  <%= link_to "Edit", edit_user_path(@user) %> |
+  <%= link_to "Destroy", @user, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", users_path %>
+</p>
